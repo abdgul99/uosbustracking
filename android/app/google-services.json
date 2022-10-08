@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "442931790418",
+    "project_id": "uosbustracking",
+    "storage_bucket": "uosbustracking.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:442931790418:android:467f7ca7ab2b6068c1558b",
+        "android_client_info": {
+          "package_name": "com.example.uosbustracking"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "442931790418-rpqc0tncbq3grv8r5olm163fdanhgnam.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDw79VqngGxpiY6awR3liGqemE3bNrSwOs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "442931790418-rpqc0tncbq3grv8r5olm163fdanhgnam.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
