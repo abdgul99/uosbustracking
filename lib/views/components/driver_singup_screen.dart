@@ -1,9 +1,4 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class SingUpScreen extends StatelessWidget {
   const SingUpScreen({Key? key}) : super(key: key);
@@ -11,7 +6,7 @@ class SingUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: [
+      children: const [
         SizedBox(
           height: 50,
           child: TextField(
@@ -32,10 +27,6 @@ class SingUpScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                // label: Text(
-                //   'Bus No.',
-                //   style: TextStyle(color: Colors.white, fontSize: 18),
-                // ),
                 contentPadding: EdgeInsets.all(10)),
           ),
         ),

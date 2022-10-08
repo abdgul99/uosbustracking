@@ -1,23 +1,15 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'dart:async';
-import 'dart:ffi';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart' as loc;
 import 'package:permission_handler/permission_handler.dart';
-import 'package:uosbustracking/main.dart';
 import 'package:uosbustracking/views/main_screen.dart';
 
 class DriverMapScreen extends StatefulWidget {
@@ -28,7 +20,7 @@ class DriverMapScreen extends StatefulWidget {
 }
 
 class _DriverMapScreenState extends State<DriverMapScreen> {
-  String uid = '2';
+  String uid = '';
   final LatLng sourcePosition = LatLng(34.767163, 72.359864);
   final LatLng destinationPosition = LatLng(34.767414, 72.356718);
   BitmapDescriptor markerIcon = BitmapDescriptor.defaultMarker;
@@ -43,7 +35,7 @@ class _DriverMapScreenState extends State<DriverMapScreen> {
   void initState() {
     // TODO: implement initState
     // getPolyLine();
-    // getUid();
+    getUid();
     // enableBackgroundMode();
     _requestPermission();
     getCustomeIcon();
@@ -98,6 +90,7 @@ class _DriverMapScreenState extends State<DriverMapScreen> {
   Future<void> getLogout() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     sharedPreferences.setString('driver', '');
+    _locationSubscription!.pause();
     await Future.delayed(const Duration(seconds: 1));
   }
 
@@ -129,7 +122,7 @@ class _DriverMapScreenState extends State<DriverMapScreen> {
                     setState(() {
                       mapZoom = cameraPosition.zoom;
                     });
-                    print('current zoom is ${cameraPosition.zoom}');
+                    // print('current zoom is ${cameraPosition.zoom}');
                   }
                 },
                 markers: {
@@ -294,127 +287,7 @@ class _DriverMapScreenState extends State<DriverMapScreen> {
   Future<void> getUid() async {
     final pref = await SharedPreferences.getInstance();
     setState(() {
-      uid = pref.getString('driver').toString();
+      uid = pref.getString('driver') as String;
     });
   }
 }
-
-// class DriverDrawr extends StatelessWidget {
-//   const DriverDrawr({
-//     Key? key,
-//   }) : super(key: key);
-//   Future<void> getLogOut() async {
-//     final preference = await SharedPreferences.getInstance();
-//     preference.setString('driver', '');
-//     FirebaseAuth.instance.signOut();
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Column(
-//       mainAxisAlignment: MainAxisAlignment.start,
-//       children: <Widget>[
-//         Container(
-//           width: MediaQuery.of(context).size.width,
-//           color: Colors.transparent,
-//           child: Padding(
-//             padding: const EdgeInsets.only(top: 60, left: 20),
-//             child: Card(
-//               elevation: 0.0,
-//               color: Colors.transparent,
-//               child: ListView(
-//                 shrinkWrap: true,
-//                 children: <Widget>[
-//                   Card(
-//                     child: ListTile(
-//                       trailing: Icon(
-//                         Icons.logout,
-//                         color: Colors.black,
-//                       ),
-//                       title: Text(
-//                         'Log out',
-//                         style: TextStyle(color: Colors.black),
-//                       ),
-//                       onTap: () async {
-//                         try {
-//                           await getLogOut().whenComplete(() {
-//                             Route route = MaterialPageRoute(
-//                                 builder: (context) => const LoginScreen());
-//                             Navigator.pushReplacement(context, route);
-//                           });
-//                         } catch (e) {
-//                           print(e);
-//                         }
-//                       },
-//                     ),
-//                   ),
-//                 ],
-//               ),
-//             ),
-//           ),
-//         ),
-//       ],
-//     );
-//   }
-// }
-  // List<LatLng> polylineCordinates = [
-  //   LatLng(34.767163, 72.359864),
-  //   LatLng(34.767414, 72.356718)
-  // ];
-   // polylines: {
-            //   Polyline(
-            //     polylineId: PolylineId('route'),
-            //     points: polylineCordinates,
-            //   ),
-            // },
-
- // Future<void> getPolyLine() async {
-  //   PolylinePoints polylineWayPoint = PolylinePoints();
-  //   PolylineResult result = await polylineWayPoint.getRouteBetweenCoordinates(
-  //     'AIzaSyDoGq9Z3PznynzwRroBnJjxJH28KiMff4k',
-  //     PointLatLng(sourcePosition.latitude, sourcePosition.longitude),
-  //     PointLatLng(destinationPosition.latitude, destinationPosition.longitude),
-  //   );
-  //   if (result.points.isNotEmpty) {
-  //     result.points.map((PointLatLng point) {
-  //       polylineCordinates.add(LatLng(point.latitude, point.longitude));
-  //       print(point);
-  //     }).toList();
-  //     setState(() {});
-  //   }
-
-  //   print(polylineCordinates.length);
-  // }
-//  Align(
-//             alignment: Alignment.center,
-//             child: AnimatedContainer(
-//               alignment: Alignment.bottomCenter,
-//               height: isVisible ? 600 : 0.0,
-//               width: 200,
-//               duration: Duration(milliseconds: 200),
-//               child: ListView.builder(itemBuilder: (context, index) {
-//                 return Card(
-//                   color: secondaryColor,
-//                   shape: RoundedRectangleBorder(
-//                       borderRadius: BorderRadius.all(Radius.circular(10))),
-//                   child: SizedBox(
-//                     height: 50,
-//                     child: Row(
-//                       children: [
-//                         SizedBox(width: 10),
-//                         FaIcon(
-//                           FontAwesomeIcons.bus,
-//                           color: Colors.white,
-//                         ),
-//                         SizedBox(width: 10),
-//                         Text(
-//                           'Bus#$index',
-//                           style: TextStyle(color: Colors.white),
-//                         ),
-//                       ],
-//                     ),
-//                   ),
-//                 );
-//               }),
-//             ),
-//           ),

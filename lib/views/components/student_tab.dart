@@ -51,8 +51,6 @@ class _StudentTabState extends State<StudentTab> {
   }
 
   Future<void> getUserLogIn() async {
-    final CollectionReference collectionReference =
-        FirebaseFirestore.instance.collection('students');
     setState(() {
       loadingState = true;
     });
@@ -70,16 +68,6 @@ class _StudentTabState extends State<StudentTab> {
           idToken: googleAuth.idToken,
         );
         await FirebaseAuth.instance.signInWithCredential(credential);
-        // await collectionReference.doc('student').update(
-        //   {
-        //     'list': FieldValue.arrayUnion([
-        //       {
-        //         'latitude': 34.7671312,
-        //         'longitude': 72.3587479,
-        //       }
-        //     ])
-        //   },
-        // );
         pref.setString('student', 'student');
         setState(() {
           userNavigation = true;

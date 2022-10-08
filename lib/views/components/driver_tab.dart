@@ -20,7 +20,6 @@ class DriverTab extends StatefulWidget {
 }
 
 class _DriverTabState extends State<DriverTab> {
-  final TextEditingController _busNoContrller = TextEditingController();
   final TextEditingController _adminLoginEmail = TextEditingController();
   final TextEditingController _adminLoginPassword = TextEditingController();
   final TextEditingController _sInBusNoContrller = TextEditingController();
@@ -81,7 +80,7 @@ class _DriverTabState extends State<DriverTab> {
                         ),
                         TextFormField(
                           controller: _sInPasswordContrller,
-                          keyboardType: TextInputType.number,
+                          // keyboardType: TextInputType.number,
                           decoration: InputDecoration(
                               label: Text(
                                 'Password',
@@ -157,37 +156,6 @@ class _DriverTabState extends State<DriverTab> {
                         ),
                         SizedBox(height: 10),
 
-                        //bus no textfield
-                        // TextFormField(
-                        //     controller: _busNoContrller,
-                        //     decoration: InputDecoration(
-                        //         label: Text.rich(
-                        //           TextSpan(
-                        //             children: [
-                        //               TextSpan(
-                        //                 text: 'Bus No.',
-                        //                 style: TextStyle(
-                        //                     color: Colors.white,
-                        //                     fontSize: 18,
-                        //                     fontWeight: FontWeight.bold),
-                        //               ),
-                        //               TextSpan(
-                        //                 text: ' *',
-                        //                 style: TextStyle(
-                        //                     fontSize: 18,
-                        //                     fontWeight: FontWeight.bold,
-                        //                     color: Colors.red),
-                        //               ),
-                        //             ],
-                        //           ),
-                        //         ),
-                        //         contentPadding: EdgeInsets.all(10)),
-                        //     validator: (text) {
-                        //       if (text == null || text.isEmpty) {
-                        //         return 'Bus No. is mandatory';
-                        //       }
-                        //       return null;
-                        //     }),
                         SizedBox(height: 10),
                         //email text field
                         TextFormField(
@@ -307,7 +275,7 @@ class _DriverTabState extends State<DriverTab> {
           .get()
           .then((DocumentSnapshot documentSnapshot) async {
         dynamic passwordMatch = documentSnapshot.get(FieldPath(['password']));
-        if (passwordMatch == password) {
+        if (password == passwordMatch) {
           await prefs.setString('driver', busNo);
           driverNavigation = true;
         } else {
@@ -315,8 +283,6 @@ class _DriverTabState extends State<DriverTab> {
             driverLoginValidation =
                 "Credentials error please contact with your system administrator";
           });
-
-          print('Contact with admi');
         }
       });
     } catch (e) {

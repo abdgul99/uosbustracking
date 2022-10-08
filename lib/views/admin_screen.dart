@@ -37,8 +37,8 @@ class _AdminScreenState extends State<AdminScreen> {
   TextEditingController nameController = TextEditingController();
   TextEditingController contactController = TextEditingController();
   TextEditingController fromController = TextEditingController();
-  final Stream<QuerySnapshot> _usersStream =
-      FirebaseFirestore.instance.collection('drivers').snapshots();
+  // final Stream<QuerySnapshot> _usersStream =
+  //     FirebaseFirestore.instance.collection('drivers').snapshots();
 
   Future<void> adminLogout() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
@@ -226,7 +226,7 @@ class _AddUserAlertboxState extends State<AddUserAlertbox> {
                         .then((DocumentSnapshot documentSnapshot) async {
                       if (documentSnapshot.exists) {
                         setState(() {
-                          userAddValidation = 'The bus already exists';
+                          userAddValidation = 'The bus is already exists';
                         });
                         print('Document exists on the database');
                       } else {
